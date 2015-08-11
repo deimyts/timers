@@ -1,0 +1,143 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  p#clock.timer__clock 00:00:00
+  p#breakClock.timer__clock 00:00:00
+
+  div.timer(data-time="25:00" data-break="5:00")
+    h2.timer__name 25/5
+    //- p#clock1.timer__clock 25:00
+    //- p#clock2.timer__clock 05:00
+    button#start.btn.btn-start Start
+    button#stop.btn.btn-stop Stop
+    button#reset.btn.btn-reset Reset
+    //- input#clock(value="25:00")
+
+  div.timer(data-time="55:00" data-break="5:00")
+
+    h2.timer__name 55/5
+    //- p#clock3-w.timer__clock 55:00
+    //- p#clock3-b.timer__clock 05:00
+
+    button#start--3.btn.btn-start Start
+    button#stop--3.btn.btn-stop Stop
+    button#reset--3.btn.btn-reset Reset
+
+  div.timer(data-time="1:20:00" data-break="10:00")
+
+    h2.timer__name 80/10
+    //- p#clock3-w.timer__clock 55:00
+    //- p#clock3-b.timer__clock 05:00
+
+    button#start--3.btn.btn-start Start
+    button#stop--3.btn.btn-stop Stop
+    button#reset--3.btn.btn-reset Reset    
+
+  #completed-timers.log
+    h2.log__title Completed Timers
+
+  script.
+    var timer = new Tock({
+      countdown: true,
+      interval: 10,
+      callback: function () {
+            var current_time = timer.msToTimecode(timer.lap());
+            //- console.log(current_time);
+            $('#clock').html(current_time);
+        }
+    });
+    
+    //- $('#start').on('click', function() {
+    //-     console.log('start');
+    //-     timer.start('25:00');
+    //- });
+
+    //- $('#stop').on('click', function() {
+    //-     console.log('stop');
+    //-     timer.stop();
+    //-     breakTimer.stop();
+    //- });
+    //- $('#reset').on('click', function() {
+    //-     $('#clock1').html('25:00');
+    //-     $('#clock2').html('05:00');
+    //- });
+
+    // 55-5
+    //- var timer3 = new Tock({
+    //-   countdown: true,
+    //-   interval: 10,
+    //-   callback: function () {
+    //-         var current_time = timer3.msToTime(timer3.lap());
+    //-         $('#clock3-w').html(current_time);
+    //-     },
+    //-   complete: function () {
+    //-         result = window.confirm("Time's up! Start Break?");
+    //-         if(result) {
+    //-             startBreak('05:00');
+    //-         }
+    //-     }
+    //- });
+
+    //- $('#start--3').on('click', function() {
+    //-     console.log('start');
+    //-     timer3.start('55:00');
+    //- });
+
+    //- $('#stop--3').on('click', function() {
+    //-     console.log('stop');
+    //-     timer3.stop();
+    //-     breakTimer.stop();
+    //- });
+
+    function startBreak2(time){
+        //- var breakTimer = new Tock({
+        //-   countdown: true,
+        //-   interval: 10,
+        //-   callback: function () {
+                
+        //-         var current_time = breakTimer.msToTime(breakTimer.lap());
+        //-         $('#clock2').html(current_time);
+        //-     },
+        //-     complete: function () {
+        //-       alert('Break is over!');
+        //-     }
+        //- });
+        console.log('break Starting');
+        //- breakTimer.start(time);
+    }
+
+    $('.btn-start').on('click', function() {
+      var workTime = $(this).parent().attr('data-time');
+      var breakTime = $(this).parent().attr('data-break');
+
+      console.log('Start: ' + workTime);
+      timer.start(workTime);
+
+      timer.complete = function () {
+        $('#completed-timers').append("<p>Timer Completed: " + workTime + "</p>" );
+        result = window.confirm("Time's up! Start Break?");
+        if(result) {
+          startBreak(breakTime);
+        }
+      }
+
+      function startBreak(time) {
+        var breakTimer = new Tock({
+          countdown: true,
+          interval: 10,
+          callback: function () {
+                var current_time = breakTimer.msToTime(breakTimer.lap());
+                $('#breakClock').html(current_time);
+            },
+            complete: function () {
+              alert('Break is over!');
+            }
+        });
+        console.log('Break: ' + time);
+        breakTimer.start(time);
+      }
+    });
+
