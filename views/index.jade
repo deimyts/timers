@@ -68,7 +68,10 @@ block content
 
       timer.complete = function () {
         var timestamp = new Date($.now());
-        $('#completed-timers').append("<p>Timer Completed: " + workTime + " <span class='log__timestamp'>"+ timestamp + "</span></p>" );
+        timestamp = (timestamp.getMonth()+1) + '/' + timestamp.getDay() + '/' + timestamp.getFullYear() + ' - ' + timestamp.getHours() + ':' + timestamp.getMinutes() + ':' + timestamp.getSeconds();
+        saveCompletedTimer(workTime, timestamp);
+        displayCompletedTimer(workTime, timestamp);
+        //- $('#completed-timers').append("<p>Timer Completed: " + workTime + " <span class='log__timestamp'>"+ timestamp + "</span></p>" );
         result = window.confirm("Time's up! Start Break?");
         if(result) {
           startBreak(breakTime);
@@ -92,23 +95,28 @@ block content
       }
     });
 
-script.
-  var db = new Firebase('https://incandescent-inferno-2252.firebaseio.com/#-JwRqCvMvWK1k_SRKbxN|ca2650ad275fe3bca4fa3e7c8021c1dc');
-  var completedTimers = [];
+    //firebase stuff
 
+    var db = new Firebase('https://incandescent-inferno-2252.firebaseio.com');
+    var completedTimers = [];
 
-
-  $('#messageInput').keypress(function (e) {
-      if (e.keyCode == 13) {
-        var name = $('#nameInput').val();
-        var text = $('#messageInput').val();
-        myDataRef.push({name: name, text: text});
-        $('#messageInput').val('');
+    function saveCompletedTimer(worktime, timestamp) {
+      var completedTimer = {
+        duration: worktime,
+        date: timestamp,
       }
-    });
+      db.push(completedTimer);
 
-  myDataRef.on('child_added', function(snapshot) {
-      var message = snapshot.val();
-      displayChatMessage(message.name, message.text);
-    });
+      db.on('child_added', function(snapshot) {
+        var data = snapshot.val();
+        console.log(data);
+
+        })
+    }
+
+    function displayCompletedTimer(worktime, timestamp) {
+      $('#completed-timers').append("<p>Timer Completed: " + worktime + " <span class='log__timestamp'>"+ timestamp + "</span></p>" );
+    }
+
+
 
