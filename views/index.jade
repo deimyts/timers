@@ -92,4 +92,23 @@ block content
       }
     });
 
+script.
+  var db = new Firebase('https://incandescent-inferno-2252.firebaseio.com/#-JwRqCvMvWK1k_SRKbxN|ca2650ad275fe3bca4fa3e7c8021c1dc');
+  var completedTimers = [];
+
+
+
+  $('#messageInput').keypress(function (e) {
+      if (e.keyCode == 13) {
+        var name = $('#nameInput').val();
+        var text = $('#messageInput').val();
+        myDataRef.push({name: name, text: text});
+        $('#messageInput').val('');
+      }
+    });
+
+  myDataRef.on('child_added', function(snapshot) {
+      var message = snapshot.val();
+      displayChatMessage(message.name, message.text);
+    });
 
