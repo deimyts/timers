@@ -7,6 +7,15 @@ block content
   p#clock.timer__clock 00:00:00
   p#breakClock.timer__clock 00:00:00
 
+  div.timer(data-time="00:01" data-break="0:01")
+    h2.timer__name test
+    //- p#clock1.timer__clock 25:00
+    //- p#clock2.timer__clock 05:00
+    button#start.btn.btn-start Start
+    button#stop.btn.btn-stop Stop
+    button#reset.btn.btn-reset Reset
+    //- input#clock(value="25:00")
+
   div.timer(data-time="25:00" data-break="5:00")
     h2.timer__name 25/5
     //- p#clock1.timer__clock 25:00
@@ -58,7 +67,8 @@ block content
       timer.start(workTime);
 
       timer.complete = function () {
-        $('#completed-timers').append("<p>Timer Completed: " + workTime + "</p>" );
+        var timestamp = new Date($.now());
+        $('#completed-timers').append("<p>Timer Completed: " + workTime + " <span class='log__timestamp'>"+ timestamp + "</span></p>" );
         result = window.confirm("Time's up! Start Break?");
         if(result) {
           startBreak(breakTime);
@@ -81,4 +91,5 @@ block content
         breakTimer.start(time);
       }
     });
+
 

@@ -5,6 +5,7 @@
  - install nodemon & livereload
  - add gulp/grunt?
  - add bower?
+ - Babel or other ES6 transpiler
 
 #Spec Notes
 
@@ -33,4 +34,4 @@
 
 
 ##Startup
-$ DEBUG=myapp npm start
+$: DEBUG=todo-timer npm start

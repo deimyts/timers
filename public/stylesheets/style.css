@@ -52,3 +52,8 @@ a {
 .log__title {
   margin-top: 0;
 }
+
+.log__timestamp {
+  font-style: italic;
+  font-size: 12px;
+}
