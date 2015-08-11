@@ -67,10 +67,15 @@ block content
       timer.start(workTime);
 
       timer.complete = function () {
+
         var timestamp = new Date($.now());
-        timestamp = (timestamp.getMonth()+1) + '/' + timestamp.getDay() + '/' + timestamp.getFullYear() + ' - ' + timestamp.getHours() + ':' + timestamp.getMinutes() + ':' + timestamp.getSeconds();
-        saveCompletedTimer(workTime, timestamp);
-        displayCompletedTimer(workTime, timestamp);
+        var date = (timestamp.getMonth()+1) + '/' + timestamp.getDay() + '/' + timestamp.getFullYear();
+        var time = timestamp.getHours() + ':' + timestamp.getMinutes() + ':' + timestamp.getSeconds();
+        var prettyTimestamp = date + ' - ' + time;
+
+        displayCompletedTimer(workTime, prettyTimestamp);
+        saveCompletedTimer(workTime, date, time);
+        
         //- $('#completed-timers').append("<p>Timer Completed: " + workTime + " <span class='log__timestamp'>"+ timestamp + "</span></p>" );
         result = window.confirm("Time's up! Start Break?");
         if(result) {
@@ -100,17 +105,17 @@ block content
     var db = new Firebase('https://incandescent-inferno-2252.firebaseio.com');
     var completedTimers = [];
 
-    function saveCompletedTimer(worktime, timestamp) {
+    function saveCompletedTimer(worktime, date, time) {
       var completedTimer = {
         duration: worktime,
-        date: timestamp,
+        date: date,
+        endTime: time
       }
       db.push(completedTimer);
 
       db.on('child_added', function(snapshot) {
         var data = snapshot.val();
-        console.log(data);
-
+          //you can do stuff with the data here
         })
     }
 
