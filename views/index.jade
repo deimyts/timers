@@ -7,14 +7,11 @@ block content
   p#clock.timer__clock 00:00:00
   p#breakClock.timer__clock 00:00:00
 
-  div.timer(data-time="00:01" data-break="0:01")
-    h2.timer__name test
-    //- p#clock1.timer__clock 25:00
-    //- p#clock2.timer__clock 05:00
-    button#start.btn.btn-start Start
-    button#stop.btn.btn-stop Stop
-    button#reset.btn.btn-reset Reset
-    //- input#clock(value="25:00")
+  //- div.timer(data-time="00:01" data-break="0:01")
+  //-   h2.timer__name test
+  //-   button#start.btn.btn-start Start
+  //-   button#stop.btn.btn-stop Stop
+  //-   button#reset.btn.btn-reset Reset
 
   div.timer(data-time="25:00" data-break="5:00")
     h2.timer__name 25/5
@@ -69,7 +66,7 @@ block content
       timer.complete = function () {
 
         var timestamp = new Date($.now());
-        var date = (timestamp.getMonth()+1) + '/' + timestamp.getDay() + '/' + timestamp.getFullYear();
+        var date = (timestamp.getMonth()+1) + '/' + timestamp.getDate() + '/' + timestamp.getFullYear();
         var time = timestamp.getHours() + ':' + timestamp.getMinutes() + ':' + timestamp.getSeconds();
         var prettyTimestamp = date + ' - ' + time;
 
