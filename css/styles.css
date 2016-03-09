@@ -1,0 +1,111 @@
+.clearfix:before, .clearfix:after {
+  content: " ";
+  display: table; }
+
+.clearfix:after {
+  clear: both; }
+
+html {
+  overflow-y: scroll;
+  box-sizing: border-box;
+  min-height: 100%;
+  width: 100%; }
+
+*, *:before, *:after {
+  box-sizing: border-box; }
+
+body {
+  width: 100%;
+  min-height: 100%;
+  color: #5e544a;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  background-color: #73C8A9;
+  background-image: linear-gradient(#3498db, #2c3e50);
+  background-size: cover; }
+
+button {
+  padding: 0;
+  background-color: transparent;
+  border: none; }
+
+.content {
+  width: 100%;
+  text-align: center;
+  padding: 0.9375rem; }
+
+.section__title {
+  font-size: 3.125rem;
+  color: #fff;
+  text-transform: uppercase;
+  margin-top: 1rem;
+  width: 100%; }
+
+.timer__clock {
+  font-size: 6.5rem;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  color: #fff;
+  font-weight: 700; }
+
+.timers {
+  width: 100%;
+  max-width: 58.125rem;
+  margin: 0 auto 1rem;
+  padding: 0.9375rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; }
+
+.timer {
+  width: 16.125rem;
+  height: 9.97rem;
+  margin: 1rem;
+  padding: 0.9375rem;
+  padding-top: 1.875rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4); }
+  .timer__time {
+    margin: 0;
+    margin-bottom: 1.5rem;
+    color: #fff;
+    font-size: 3.125rem;
+    line-height: 1; }
+  .timer__btn {
+    margin: 0;
+    color: #fff;
+    display: inline-block;
+    width: 2.5rem;
+    height: 1.25rem;
+    font-size: 0.75rem;
+    text-align: center;
+    border-bottom: 1px solid #fff;
+    margin-left: .75rem;
+    margin-right: .75rem;
+    transition: all .2s; }
+    .timer__btn:hover {
+      color: #17C2FF;
+      border-color: #17C2FF; }
+
+.log {
+  width: 100%;
+  max-width: 58.125rem;
+  margin: 0 auto 1rem;
+  padding: 0.9375rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: #fff;
+  text-align: left; }
+  .log__title {
+    margin: 0;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    font-size: 3.125rem;
+    color: #fff;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6); }
+  .log p {
+    letter-spacing: .05em; }
