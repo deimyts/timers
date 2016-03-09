@@ -1,1 +1,95 @@
-Timers
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Timers</title>
+    <link rel="stylesheet" href="/css/vendor/normalize.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/tock.js"></script>
+</head>
+
+<body>
+    <section class="content">
+        <h1 class="section__title">Timers</h1>
+        <p id="clock" class="timer__clock">00:00:00</p>
+        <section class="timers">
+            <div data-time="30:00" data-break="5:00" class="timer">
+                <h2 class="timer__time">30/5</h2>
+                <button id="start" class="timer__btn btn-start">Start</button>
+                <button id="stop" class="timer__btn btn-stop">Stop</button>
+                <button id="reset" class="timer__btn btn-reset">Reset</button>
+            </div>
+            <div data-time="1:00:00" data-break="5:00" class="timer">
+                <h2 class="timer__time">60/5</h2>
+                <button id="start--3" class="timer__btn btn-start">Start</button>
+                <button id="stop--3" class="timer__btn btn-stop">Stop</button>
+                <button id="reset--3" class="timer__btn btn-reset">Reset</button>
+            </div>
+            <div data-time="1:30:00" data-break="10:00" class="timer">
+                <h2 class="timer__time">90/10</h2>
+                <button id="start--3" class="timer__btn btn-start">Start</button>
+                <button id="stop--3" class="timer__btn btn-stop">Stop</button>
+                <button id="reset--3" class="timer__btn btn-reset">Reset </button>
+            </div>
+        </section>
+        <section id="completed-timers" class="log">
+        </section>
+    </section>
+    <script>
+        var timer = new Tock({
+            countdown: true,
+            interval: 10,
+            callback: function() {
+                var current_time = timer.msToTimecode(timer.lap());
+                $('#clock').html(current_time);
+            }
+        });
+
+        $('.btn-start').on('click', function() {
+            var workTime = $(this).parent().attr('data-time');
+            var breakTime = $(this).parent().attr('data-break');
+            var completedTimers = [];
+
+            console.log('Start: ' + workTime);
+            timer.start(workTime);
+
+            timer.complete = function() {
+
+                var timestamp = new Date($.now());
+                var date = (timestamp.getMonth() + 1) + '/' + timestamp.getDate() + '/' + timestamp.getFullYear();
+                var time = timestamp.getHours() + ':' + timestamp.getMinutes() + ':' + timestamp.getSeconds();
+                var prettyTimestamp = date + ' - ' + time;
+
+                displayCompletedTimer(workTime, prettyTimestamp);
+
+                result = window.confirm("Time's up! Start Break?");
+                if (result) {
+                    startBreak(breakTime);
+                }
+            }
+
+            function startBreak(time) {
+                var breakTimer = new Tock({
+                    countdown: true,
+                    interval: 10,
+                    callback: function() {
+                        var current_time = breakTimer.msToTimecode(breakTimer.lap());
+                        $('#clock').html(current_time);
+                    },
+                    complete: function() {
+                        alert('Break is over!');
+                    }
+                });
+                console.log('Break: ' + time);
+                breakTimer.start(time);
+            }
+        });
+
+        function displayCompletedTimer(worktime, timestamp) {
+            $('#completed-timers').append("<p>Timer Completed: " + worktime + " <span class='log__timestamp'>" + timestamp + "</span></p>");
+        }
+    </script>
+</body>
+
+</html>
